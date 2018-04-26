@@ -3,13 +3,10 @@ package com.calculator;
 import java.util.Arrays;
 import java.util.List;
 
-public final class EquationString {
-
-    // TODO: move this to EquationPart?
+public class EquationString {
 
     public static boolean isOperator(String s) {
-
-        List<String> opList = Arrays.asList("+", "-", "*", "/");
+        List<String> opList = Arrays.asList(EquationOperation.ADD.getString(), EquationOperation.SUBTRACT.getString(), EquationOperation.MULTIPLY.getString(), EquationOperation.DIVIDE.getString());
 
         if (opList.contains(s)) {
             return true;
@@ -19,10 +16,7 @@ public final class EquationString {
     }
 
     public static boolean isOpeningBracket(String s) {
-
-        List<String> brackets = Arrays.asList("(");
-
-        if (brackets.contains(s)) {
+        if (s.equals(EquationPart.OPENING_BRACKET.getString())) {
             return true;
         }
 
@@ -30,10 +24,7 @@ public final class EquationString {
     }
 
     public static boolean isClosingBracket(String s) {
-
-        List<String> brackets = Arrays.asList(")");
-
-        if (brackets.contains(s)) {
+        if (s.equals(EquationPart.CLOSING_BRACKET.getString())) {
             return true;
         }
 
@@ -41,14 +32,12 @@ public final class EquationString {
     }
 
     public static boolean isFunction(String s) {
+        List<String> functions = Arrays.asList(EquationFunction.SINE.getString(), EquationFunction.COSINE.getString(), EquationFunction.TANGENT.getString(), EquationFunction.EXPONENT.getString(), EquationFunction.CUSTOM_FUNCTION.getString());
 
-        // consider functions with expressions sin(1 + 2 + 3 + cos(3)), x^2 is an exception case of functions
-        // could use solve() in this class, or solve in calculator class then not have expressions as params here
-
-        List<String> functions = Arrays.asList("sin", "cos", "tan");
-
-        if (functions.contains(s) || s.contains("^")) {
-            return true;
+        for (String function: functions) {
+            if (s.toUpperCase().contains(function)) {
+                return true;
+            }
         }
 
         return false;
@@ -66,6 +55,37 @@ public final class EquationString {
         return true;
     }
 
+    // Don't know how many digits a number may have so only insert commas at operators and brackets
+    private static String insertCommas(String input) {
+        StringBuilder sb = new StringBuilder();
+        String s;
 
+        System.out.println("input = " + input);
+
+        for (int i = 0; i < input.length(); i++) {
+            s = Character.toString(input.charAt(i));
+
+            if (EquationString.isOperator(s)) {
+                sb.append("," + input.charAt(i) + ",");
+            }
+            else if (EquationString.isOpeningBracket(s)) {
+                sb.append("," + input.charAt(i) + ",");
+            }
+            else if (EquationString.isClosingBracket(s)) {
+                sb.append("," + input.charAt(i));
+            }
+            else {
+                sb.append(input.charAt(i));
+            }
+        }
+
+
+        return sb.toString().replace(",,", ",");
+    }
+
+    public static List<String> getElements(String input) {
+        input = input.replaceAll("\\s", "");
+        return Arrays.asList(insertCommas(input).split(","));
+    }
 
 }

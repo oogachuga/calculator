@@ -11,8 +11,9 @@ public class EquationElement {
     private int index;
 
     public EquationElement(String s) {
+        this.type = this.getType(s);    // type shouldn't be null for this object. brackets only need type set
 
-        this.type = this.getType(s);    // type shouldn't be null for this object, brackets only need type set
+        System.out.println("TYPE = " + this.type + ", value = " + s);
 
         if (this.type.equals(EquationPart.ELEMENT_TYPE_NUMBER.getString())) {
             this.value = Double.parseDouble(s);
@@ -23,7 +24,6 @@ public class EquationElement {
     }
 
     private String getType(String element) {
-
         if (EquationString.isOperator(element)) {
             return EquationPart.ELEMENT_TYPE_OPERATOR.getString();
         }

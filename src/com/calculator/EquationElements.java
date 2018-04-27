@@ -12,7 +12,6 @@ public class EquationElements {
 
     private List<EquationElement> buildElementList(String input) {
         List<String> elements = EquationString.getElements(input);
-        System.out.println("elements with commas = " + elements);
         List<EquationElement> equationElements = new ArrayList<>();
 
         for (String e: elements) {
@@ -26,12 +25,6 @@ public class EquationElements {
         return this.equationElements;
     }
 
-    public void moveElement(EquationElement e, int toIndex) {
 
-    }
-
-    public void removeElement() {
-
-    }
 
 }

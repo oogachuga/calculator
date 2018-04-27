@@ -5,17 +5,27 @@ public class Calculator {
     private EquationElements equation;
 
     public double solve(EquationElements equation) {
-
-        this.equation = equation;
-        this.printDebug();
-
+        // total
+        // next op number loop
+        // found bracket, op solve(bracket)
+        // end loop
+        // if hasFunction: applyFunction(total)
+        // return total
         return 0;
     }
 
-    private void printDebug() {
-        for (EquationElement element: this.equation.getElements()) {
+    private EquationElements extractBrackets() {
+        return null;
+    }
+
+    private void printDebug(EquationElements equation) {
+        for (EquationElement element: equation.getElements()) {
             System.out.println(element.getType() + ", " + element.getValue() + ", " + element.getOperation());
         }
+    }
+
+    private static String convertFunctions(String input) {
+        return "";
     }
 
 }
@@ -27,10 +37,14 @@ public class Calculator {
 
 // test on this string input: 1+sine(2+3+cf(1+2,3,4))*10    where cf is a custom function a*b*c+5
 //              fn processed: 1+sine(2+3+(1+2)*(3)*(4)+5)*10
-//                          : insert commas
+//             insert commas: 1,+,sine,(,2,+,3,+,cf,(,1,+,2,3,4,),),*,10
 //              start solver
 //                    step 1: convert all brackets to numbers, scan for brackets
 //                    step 2: solver extracts sine's bracket [ 2+3+(1+2)*(3)*(4)+5 ]
 //                    step 3: solves bracket 1 (1+2)
 //                    step 4: then solves bracket 2,3
 //                    step 5: solved sine's bracket now string looks like 1+sine(41)*10 or 1,+,sine,41,*,10
+
+//      no multi parameter functions
+
+//      later: core functions eg. sine, cosine, exp,        These aren't created by users, however they can still be multi param

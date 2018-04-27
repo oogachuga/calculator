@@ -9,7 +9,8 @@ public enum EquationPart {
     ELEMENT_TYPE_NUMBER         ("NUMBER"),
     ELEMENT_TYPE_BRACKET_OPEN   ("BRACKET_OPEN"),
     ELEMENT_TYPE_BRACKET_CLOSE  ("BRACKET_CLOSE"),
-    ELEMENT_TYPE_FUNCTION       ("FUNCTION");
+    ELEMENT_TYPE_FUNCTION       ("FUNCTION"),
+    PARAMETER                   ("PARAMETER");
 
     private final String part;
 
